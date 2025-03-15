@@ -1,0 +1,26 @@
+[Event "Prague Masters"]
+[Site "Prague CZE"]
+[Date "2025.02.26"]
+[EventDate "2025.02.26"]
+[Round "1.5"]
+[Result "1-0"]
+[White "Vincent Keymer"]
+[Black "Yi Wei"]
+[ECO "E32"]
+[WhiteElo "2731"]
+[BlackElo "2755"]
+[Source "Lichess"]
+[PlyCount "110"]
+
+1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. Qc2 O-O 5. e4 d5
+6. e5 Ne4 7. a3 Bxc3+ 8. bxc3 c5 9. Bd3 cxd4 10. cxd4 Nc6
+11. Ne2 Qa5+ 12. Kf1 f6 13. Bxe4 dxe4 14. exf6 Rxf6 15. Be3 Bd7
+16. Kg1 Raf8 17. h4 Ne7 18. Qxe4 Nf5 19. Bg5 Nd6 20. Qd3 Rxf2
+21. Be7 Bc6 22. Rh2 Qf5 23. Qxf5 R8xf5 24. d5 exd5 25. Ng3 Nxc4
+26. Bc5 R2f4 27. Nxf5 Rxf5 28. Bxa7 b6 29. Rh3 Rf7 30. Bb8 d4
+31. Rc1 b5 32. a4 Rd7 33. axb5 Bxb5 34. Rb3 Rd5 35. Bf4 Ne5
+36. Rc8+ Kf7 37. Rc7+ Kf6 38. Rb7 Bd7 39. Rg3 Ng4 40. Bg5+ Kf5
+41. Rf3+ Kg6 42. Rb6+ Kh5 43. Rf7 Ra5 44. Rd6 Bf5 45. Bc1 d3
+46. Rxg7 Kxh4 47. Rf7 Be4 48. Rd4 Bf5 49. Rf4 d2 50. Bxd2 Ra1+
+51. Rf1 Rxf1+ 52. Kxf1 Bd3+ 53. Kg1 Be4 54. Ra7 Bc2 55. Ra5 1-0
+
