@@ -88,7 +88,7 @@ CREATE TABLE GameComment (
 CREATE TABLE Action (
     GameID INT NOT NULL,
     MoveNumber INT NOT NULL,
-    Move  NOT NULL,
+    Move VARCHAR(50) NOT NULL
     time_stamp DATETIME NOT NULL,
     PRIMARY KEY (GameID, MoveNumber),
     FOREIGN KEY (GameID) REFERENCES Game(GameID)
