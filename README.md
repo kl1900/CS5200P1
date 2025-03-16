@@ -1,4 +1,4 @@
-# CS5800P1
+# CS5200P1
 
 a good place to find pgn files is here:https://www.chessgames.com/perl/chess.pl?page=44&pid=130615 
 select a game and download pgn of the game
