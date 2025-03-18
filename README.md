@@ -48,13 +48,15 @@ mysql -u root -p < insert_csv.sql
 ```
 
 ## TODO
- - make sure everyone can run docker and have this setup
- - maybe fix the following data tables
-    - (Raagini) table Player: use fake email addresses xxxx@example.com
-    - (Weifan) table BanDecider: ?
-    - (Xu Tang) table Session: add sessions
-    - (Kuo) table Game: make sure each game belongs to a session, and fix results to match Results table
-    - (Raagini) table Achievements: add up to 20 achievements
-    - (Kuo) table PlayerGameSession: make realistic data so that Game are in a session of a player
- - download csvs
- - (Kuo) edit insert_csv.sql for each table
+ - (Kuo) add instruction for setting up a php server (ideally docker server)
+ - Retrieve query results dynamically.
+ - Filter and sort data interactively.
+ - Update player profiles and other relevant data.
+ - Delete records with cascade operations to maintain referential integrity.
+ - The web app must include dynamic query integration, allowing users to interact with:
+    - Join Query: Display top players and their unlocked achievements by joining the Players, Achievements and Sessions tables.
+    - Aggregation Query: Compute average playtime per player and total achievements per game.
+    - Nested Aggregation with Group-By: Find total playtime per week grouped by player.
+    - Filtering & Ranking Query: Display the top 5 players with the highest scores dynamically.
+    - Update Operation: Allow users to modify player profile details through a web form.
+    - Delete Operation (Cascade on Delete): Ensure deleting a player removes related sessions and achievements automatically.
