@@ -1,0 +1,35 @@
+networks:
+  cs5200-network:
+    driver: bridge
+
+services:
+  php-pbp:
+    image: php:8.2-apache
+    build: .
+    container_name: php-dev
+    restart: always
+    ports:
+      - "8080:80"  # Access via http://localhost:8080
+    volumes:
+      - ./app:/var/www/html  # Mount local "app" folder into container
+    depends_on:
+      - mysql
+    networks:
+      - cs5200-network
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 5800
+      MYSQL_DATABASE: Practicum1
+      MYSQL_USER: student
+      MYSQL_PASSWORD: student
+    ports:
+      - "3306:3306"
+    networks:
+      - cs5200-network
+    volumes:
+      - ./local/mysql:/var/lib/mysql
+      - ./mysql_scripts/:/var/lib/mysql-files/
