@@ -1,0 +1,21 @@
+AchievementID,name,requirement,description
+1,First Victory,Win 1 game,Awarded for winning your first game.
+2,Five Wins Streak,Win 5 games in a row,Maintain a winning streak of 5 consecutive games.
+3,Stalemate Expert,Draw 10 games,Master the art of survival by drawing 10 games.
+4,Blitz King,Win a game in under 10 moves,Win a game in less than 10 moves. Speed demon!
+5,Castling Master,Perform castling 50 times,Secure your king by castling 50 times in different games.
+6,Undefeated Streak,Win 10 games in a row,Achieve an undefeated streak with 10 consecutive victories.
+7,Marathon Player,Play 100 games,Show your endurance by playing 100 games.
+8,Queen Slayer,Capture 50 opponent queens,Dominate your opponents by capturing 50 queens.
+9,Pawn Promotion Expert,Promote 20 pawns,Promote 20 pawns to any piece.
+10,Checkmate Under Pressure,Checkmate in under 1 minute,Deliver a checkmate under time pressure in less than a minute.
+11,First Login,login 1 session,Welcome to the app
+12,Friendly Challenger,Play against 10 different players,Broaden your horizons by challenging 10 different opponents.
+13,Back in Business,Win a game after a losing streak of 5 or more games,Shake off the losses and get back to winning ways!
+14,Nightmare Knight,Checkmate using a knight,Deliver a stylish checkmate with your horse!
+15,Dedicated Player,Log in for 7 consecutive days,Stay consistent and show your commitment with a 7-day login streak!
+16,Tough Cookie,Lose 10 games in a row,"Sometimes, the best way to learn is through defeat. Keep going!"
+17,Fool’s Mate Master,Win a game using Fool’s Mate,Deliver the infamous two-move checkmate—foolproof and fast!
+18,Perfect Game,Win a game without losing a piece,Achieve chess perfection—win without a single casualty!
+19,Chess Critic,Leave a comment on a game,Leave a comment on any game sharing your thoughts!
+20,Opening Explorer,Play 10 different opening moves in separate games.,Expand your chess knowledge—experiment with 10 different openings!

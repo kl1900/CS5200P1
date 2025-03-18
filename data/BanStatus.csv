@@ -1,0 +1,5 @@
+Ban_status_ID,description,Withdraw Rate(%)
+1,No Ban,0% - 9.99%
+2,Warning,10% - 19.99%
+3,Temporary Ban,20% - 29.99%
+4,Permanent Ban,30%+

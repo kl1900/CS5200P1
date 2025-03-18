@@ -1,0 +1,12 @@
+Wins,Losses,Draws,Withdraw,WithdrawRate(%),Ban_status_ID
+66,98,34,10,0.048,1
+44,9,17,20,0.222,3
+92,29,45,30,0.153,2
+68,100,0,40,0.192,2
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+Total Games = Wins + Losses + Draws + Withdraw,,,,,
+Withdraw Rate % = Withdraw / Total Games ,,,,,
