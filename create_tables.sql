@@ -7,9 +7,10 @@ CREATE TABLE Player (
     Username VARCHAR(50) NOT NULL,
     registration_date DATE NOT NULL,
     email_address VARCHAR(100) UNIQUE NOT NULL,
-    Wins INT NOT NULL,
-    Losses INT NOT NULL,
-    Draws INT NOT NULL
+    Wins INT NOT NULL DEFAULT 0,
+    Losses INT NOT NULL DEFAULT 0,
+    Draws INT NOT NULL DEFAULT 0,
+    Withdraw INT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE PlayerRank (
@@ -34,6 +35,7 @@ CREATE TABLE BanDecider (
     Wins INT NOT NULL,
     Losses INT NOT NULL,
     Draws INT NOT NULL,
+    Withdraws INT NOT NULL,
     Ban_status_ID INT NOT NULL,
     PRIMARY KEY (Wins, Losses, Draws),
     FOREIGN KEY (Ban_status_ID) REFERENCES BanStatus(Ban_status_ID)
