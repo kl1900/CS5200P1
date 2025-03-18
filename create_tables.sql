@@ -1,3 +1,7 @@
+CREATE DATABASE Practicum1;
+
+USE Practicum1;
+
 CREATE TABLE Player (
     PlayerID INT PRIMARY KEY,
     Username VARCHAR(50) NOT NULL,
@@ -8,9 +12,9 @@ CREATE TABLE Player (
     Draws INT NOT NULL
 );
 
-CREATE TABLE Rank (
+CREATE TABLE PlayerRank (
     RankID INT PRIMARY KEY,
-    Rank_name VARCHAR(50) NOT NULL
+    RankName VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE RankDecider (
@@ -18,7 +22,7 @@ CREATE TABLE RankDecider (
     Losses INT NOT NULL,
     RankID INT NOT NULL,
     PRIMARY KEY (Wins, Losses),
-    FOREIGN KEY (RankID) REFERENCES Rank(RankID)
+    FOREIGN KEY (RankID) REFERENCES PlayerRank(RankID)
 );
 
 CREATE TABLE BanStatus (
@@ -49,16 +53,6 @@ CREATE TABLE Session (
     Session_end DATETIME
 );
 
-CREATE TABLE PlayerGameSession (
-    PlayerID INT NOT NULL,
-    GameID INT NOT NULL,
-    SessionID INT NOT NULL,
-    PRIMARY KEY (PlayerID, GameID, SessionID),
-    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID),
-    FOREIGN KEY (GameID) REFERENCES Game(GameID),
-    FOREIGN KEY (SessionID) REFERENCES Session(SessionID)
-);
-
 CREATE TABLE Result (
     ResultID INT PRIMARY KEY,
     result_description VARCHAR(50) NOT NULL
@@ -76,6 +70,16 @@ CREATE TABLE Game (
     FOREIGN KEY (ResultID) REFERENCES Result(ResultID)
 );
 
+CREATE TABLE PlayerGameSession (
+    PlayerID INT NOT NULL,
+    GameID INT NOT NULL,
+    SessionID INT NOT NULL,
+    PRIMARY KEY (PlayerID, GameID, SessionID),
+    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID),
+    FOREIGN KEY (GameID) REFERENCES Game(GameID),
+    FOREIGN KEY (SessionID) REFERENCES Session(SessionID)
+);
+
 CREATE TABLE GameComment (
     CommentID INT PRIMARY KEY,
     GameID INT NOT NULL,
@@ -88,7 +92,7 @@ CREATE TABLE GameComment (
 CREATE TABLE Action (
     GameID INT NOT NULL,
     MoveNumber INT NOT NULL,
-    Move VARCHAR(50) NOT NULL
+    Move VARCHAR(50) NOT NULL,
     time_stamp DATETIME NOT NULL,
     PRIMARY KEY (GameID, MoveNumber),
     FOREIGN KEY (GameID) REFERENCES Game(GameID)
