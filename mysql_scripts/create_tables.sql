@@ -1,5 +1,3 @@
-CREATE DATABASE Practicum1;
-
 USE Practicum1;
 
 CREATE TABLE Player (

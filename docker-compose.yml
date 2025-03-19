@@ -5,13 +5,15 @@ networks:
 services:
   php-pbp:
     image: php:8.2-apache
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: php-dev
     restart: always
     ports:
-      - "8080:80"  # Access via http://localhost:8080
+      - "8080:80"
     volumes:
-      - ./app:/var/www/html  # Mount local "app" folder into container
+      - ./app:/var/www/html
     depends_on:
       - mysql
     networks:
@@ -33,3 +35,18 @@ services:
     volumes:
       - ./local/mysql:/var/lib/mysql
       - ./mysql_scripts/:/var/lib/mysql-files/
+  
+  phpadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin-container
+    depends_on:
+      - mysql
+    networks:
+      - cs5200-network
+    ports:
+      - "8081:80"
+    links:
+      - mysql:db
+    volumes:
+      - ./local/phpadmin:/sessions
+    
