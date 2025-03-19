@@ -24,6 +24,10 @@ To populate data in the database, run the following command
 ```
 docker exec mysql-db /bin/bash /var/lib/mysql-files/populate_db.sh
 ```
+If you want to rebuild all containers, run the following command
+```
+docker-compose down
+```
 
 ## TODO
  - (Done) add instruction for setting up a php server (ideally docker server)
