@@ -13,4 +13,3 @@
 ">
 NEU CS5200 Practicum 1
 </footer>
-<?php mysqli_close($conn); ?>

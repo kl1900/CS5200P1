@@ -1,54 +1,36 @@
 <?php include "./includes/header.php"?>
 
-<!-- form submission section -->
-<?php
-$result = null;
-$error = "";
-try {
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST["sql_query"])) {
-        $query = $_POST["sql_query"];
+<h2>Applications Tabs</h2>
 
-        // Execute the query
-        $result = mysqli_query($conn, $query);
-        if (!$result) {
-            $error = mysqli_error($conn);
-        }
-    }
-} catch (Throwable $e){
-    $error = "Fatal error: " . $e->getMessage();
+<div class="tabs">
+    <button class="tab-button" onclick="loadTab('features/get_top_players.php', this)">Top Players</button>
+    <button class="tab-button" onclick="loadTab('features/something.php', this)">some other feature</button>
+</div>
+
+<div id="content">
+    <p>Select a feature tab above to load PHP content.</p>
+</div>
+
+<script>
+function loadTab(url, btn) {
+    // Mark the active tab
+    document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Fetch and load the PHP content
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('content').innerHTML = html;
+        })
+        .catch(err => {
+            document.getElementById('content').innerHTML = `<p style="color:red;">Failed to load ${url}</p>`;
+        });
 }
-?>
 
-<h3>SQL Query Executor</h3>
-<form method="post">
-    <label for="sql_query">Enter your SQL query:</label><br>
-    <textarea name="sql_query" id="sql_query" rows="4" cols="60"><?php echo isset($_POST["sql_query"]) ? htmlspecialchars($_POST["sql_query"]) : ""; ?></textarea><br><br>
-    <button type="submit">Execute</button>
-</form>
-
-
-<hr>
-
-    <?php if ($error): ?>
-        <p style="color:red;">Error: <?php echo $error; ?></p>
-    <?php elseif ($result && mysqli_num_rows($result) > 0): ?>
-        <h3>Query Results:</h3>
-        <table border="1" cellpadding="5">
-            <tr>
-                <?php while ($field = mysqli_fetch_field($result)) : ?>
-                    <th><?php echo htmlspecialchars($field->name); ?></th>
-                <?php endwhile; ?>
-            </tr>
-            <?php while ($row = mysqli_fetch_assoc($result)) : ?>
-                <tr>
-                    <?php foreach ($row as $value) : ?>
-                        <td><?php echo htmlspecialchars($value); ?></td>
-                    <?php endforeach; ?>
-                </tr>
-            <?php endwhile; ?>
-        </table>
-    <?php elseif ($result): ?>
-        <p>No results found.</p>
-    <?php endif; ?>
+window.onload = function () {
+    document.querySelector('.tab-button').click();
+};
+</script>
 
 <?php include "./includes/footer.php" ?>
