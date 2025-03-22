@@ -1,4 +1,3 @@
-
 <!-- form submission section -->
 <?php
 include "./db.php";
@@ -12,7 +11,7 @@ try {
     if (!$result) {
         $error = mysqli_error($conn);
     }
-} catch (Throwable $e){
+} catch (Throwable $e) {
     $error = "Fatal error: " . $e->getMessage();
 }
 ?>
@@ -22,18 +21,28 @@ try {
 
     <table border="1" cellpadding="5">
         <tr>
-            <?php while ($field = mysqli_fetch_field($result)) : ?>
+            <?php while ($field = mysqli_fetch_field($result)): ?>
                 <th><?php echo htmlspecialchars($field->name); ?></th>
             <?php endwhile; ?>
+
+            <!-- Add an extra column header for Edit button -->
+            <th>Action</th>
         </tr>
-        <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+
+        <?php while ($row = mysqli_fetch_assoc($result)): ?>
             <tr>
-                <?php foreach ($row as $value) : ?>
+                <?php foreach ($row as $value): ?>
                     <td><?php echo htmlspecialchars($value); ?></td>
                 <?php endforeach; ?>
+
+                <!-- Add an extra cell with the Edit link -->
+                <td>
+                    <a href="/features/edit_player.php?id=<?php echo $row['PlayerID']; ?>">Edit</a>
+                </td>
             </tr>
         <?php endwhile; ?>
     </table>
+
 <?php elseif ($result): ?>
     <p>No results found.</p>
 <?php endif; ?>

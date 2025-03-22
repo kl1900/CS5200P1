@@ -1,35 +1,48 @@
 <?php
 include 'db.php';
 
-if (!isset($_GET['playerId'])) {
-    echo "<p>No player selected (no playerId param).</p>";
-    exit;
-}
-
-$playerId = intval($_GET['playerId']);
-
-echo "<p>Results: </p>";
-
-// Debug: Show playerId in the output to confirm
-//echo "<p>Loading data for Player ID: $playerId</p>";
+$playerId = intval($_GET['playerId'] ?? 0);
 
 if ($playerId <= 0) {
-    echo "<p style='color:red;'>Invalid player selected.</p>";
+    echo "<p>No valid player selected.</p>";
     exit;
 }
 
+$playerName = '';
+$stmt_player = $conn->prepare("SELECT Username FROM Player WHERE PlayerID = ?");
+$stmt_player->bind_param("i", $playerId);
+$stmt_player->execute();
+$stmt_player->bind_result($playerName);
+$stmt_player->fetch();
+$stmt_player->close();
+
+echo "<h3>Achievements and Related Sessions for Player: <strong>$playerName</strong></h3>";
+
+// changes 1: link each achievement to the earliest matching session
 $sql = "
-SELECT 
-    p.Username,
-    a.name AS AchievementName
-FROM 
-    Player p
-JOIN 
-    PlayerAchievement pa ON p.PlayerID = pa.PlayerID
-JOIN 
+SELECT
+    a.name AS AchievementName,
+    pa.achievement_datetime,
+    s.SessionID,
+    s.Session_start,
+    s.Session_end
+FROM
+    PlayerAchievement pa
+JOIN
     Achievements a ON pa.AchievementID = a.AchievementID
-WHERE 
-    p.PlayerID = ?
+LEFT JOIN Session s ON
+    s.SessionID = (
+        SELECT s1.SessionID
+        FROM Session s1
+        WHERE s1.Session_start <= pa.achievement_datetime
+          AND s1.Session_end >= pa.achievement_datetime
+        ORDER BY s1.Session_start ASC
+        LIMIT 1
+    )
+WHERE
+    pa.PlayerID = ?
+ORDER BY
+    pa.achievement_datetime ASC
 ";
 
 $stmt = $conn->prepare($sql);
@@ -44,17 +57,34 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
-    echo "<table border='1' cellpadding='5'>
-            <tr><th>Username</th><th>Achievement</th></tr>";
+    echo '<div class="table-container">';
+    echo "<table border='1' cellpadding='5'>";
+    echo "<tr>
+            <th>Achievement</th>
+            <th>Unlocked At</th>
+            <th>Session ID</th>
+            <th>Session Start</th>
+            <th>Session End</th>
+          </tr>";
 
     while ($row = $result->fetch_assoc()) {
+        $achievementName = htmlspecialchars($row['AchievementName']);
+        $achievementDateTime = htmlspecialchars($row['achievement_datetime']);
+        $sessionId = $row['SessionID'] !== null ? $row['SessionID'] : 'N/A';
+        $sessionStart = $row['Session_start'] !== null ? $row['Session_start'] : 'N/A';
+        $sessionEnd = $row['Session_end'] !== null ? $row['Session_end'] : 'N/A';
+
         echo "<tr>
-                <td>{$row['Username']}</td>
-                <td>{$row['AchievementName']}</td>
+                <td>$achievementName</td>
+                <td>$achievementDateTime</td>
+                <td>$sessionId</td>
+                <td>$sessionStart</td>
+                <td>$sessionEnd</td>
               </tr>";
     }
 
     echo "</table>";
+    echo '</div>';
 } else {
     echo "<p>No achievements found for this player.</p>";
 }
