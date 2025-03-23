@@ -1,8 +1,19 @@
-<!-- form submission section -->
 <?php
 include "./db.php";
 
-$sql = "select * from Player";
+$sql = "
+select p.Username, PlayerPlayTime.playtime, achievements from (
+        select pgs.PlayerID, SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, g.Game_start, g.Game_end))) as playtime
+        from PlayerGameSession as pgs
+        left join Game as g on pgs.GameID = g.GameID
+        GROUP by pgs.PlayerID
+    ) as PlayerPlayTime
+    left join Player as p on PlayerPlayTime.PlayerID = p.PlayerID
+    left join (
+    	select pa.PlayerID, COUNT(pa.AchievementID) as achievements
+        from PlayerAchievement as pa group by pa.PlayerID
+    ) as achieves on p.PlayerID = achieves.PlayerID;
+";
 $result = null;
 $error = "";
 try {
@@ -24,10 +35,6 @@ try {
             <?php while ($field = mysqli_fetch_field($result)): ?>
                 <th><?php echo htmlspecialchars($field->name); ?></th>
             <?php endwhile; ?>
-
-            <!-- Add an extra column header for Edit button -->
-            <th>Edit</th>
-            <th>Delete</th>
         </tr>
 
         <?php while ($row = mysqli_fetch_assoc($result)): ?>
@@ -35,14 +42,6 @@ try {
                 <?php foreach ($row as $value): ?>
                     <td><?php echo htmlspecialchars($value); ?></td>
                 <?php endforeach; ?>
-
-                <!-- Add an extra cell with the Edit link -->
-                <td>
-                    <a href="/features/edit_player.php?id=<?php echo $row['PlayerID']; ?>">Edit</a>
-                </td>
-                <td>
-                    <a href="/features/delete_player.php?id=<?php echo $row['PlayerID']; ?>">Delete</a>
-                </td>
             </tr>
         <?php endwhile; ?>
     </table>

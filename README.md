@@ -54,8 +54,7 @@ docker-compose down
 - The web app must include dynamic query integration, allowing users to interact with:
   - (weifan: "Top Players" ) Join Query: Display top players and their unlocked achievements by joining the Players, Achievements and Sessions tables.
     - Filter and sort data interactively.
-  - (Kuo: "Player Time") Aggregation Query: Compute average playtime per player and total achievements per game.
-    - what does total achievements per game mean? TBD
+  - (Kuo: "Players Statistics": Done) Aggregation Query: Compute average playtime per player and total achievements per game.
     - Filter and sort data interactively.
   - (Raagini: "Play Time Per Week") Nested Aggregation with Group-By: Find total playtime per week grouped by player.
     - use player + playergamesession + (session or game) to calculate playtimie
@@ -65,7 +64,7 @@ docker-compose down
     - highest score highest win rate (win / (win + losses + draws))
     - Filter and sort data interactively.
   - (Weifan: "Update Player") Update Operation: Allow users to modify player profile details through a web form.
-  - (Kuo: "Delete Player") Delete Operation (Cascade on Delete): Ensure deleting a player removes related sessions and achievements automatically.
+  - (Kuo: "Delete Player": Done) Delete Operation (Cascade on Delete): Ensure deleting a player removes related sessions and achievements automatically.
     - needs to update sql schema for cascade on deletion.
     - deleting a player needs to delete relevant data in PlayerGameSession, games, GameComment, and recalculate win/loss for other players
     - Filter and sort data interactively.
