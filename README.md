@@ -49,16 +49,29 @@ docker-compose down
 
 ## TODO
 
+- (Xu) update every table to be able to Retrieve query results dynamically and sort interactively
+- (Raagini: "Play Time Per Week") Nested Aggregation with Group-By: Find total playtime per week grouped by player.
+    - use player + playergamesession + (session or game) to calculate playtimie
+    - | player | 2/1 - 2/7 | 2/8 - 2/14 | 2/15 - 2/21 | 2/22 - 2/28 |
+    - Filter and sort data interactively.
+
+### Dashboard Implementation
+- (Weifan) Charts and tables for player statistics, session analytics, and achievements.
+- (Xu Tang) Filters and interactive elements for data exploration.
+  - add column showing which players are paid players
+    - filter by paid player
+  - another idea is filter by registration
+- (Kuo) AJAX-based updates (bonus features) for a smoother user experience. Each bonus feature is
+worth 2 points. You can implement maximum three different bonus features (For example,
+Triggers, role-based authentication or stored procedures)
+
+
+## DONE
 - (Done) add instruction for setting up a php server (ideally docker server)
-- (check at the end of the MS) Retrieve query results dynamically.
 - The web app must include dynamic query integration, allowing users to interact with:
   - (weifan: "Top Players" ) Join Query: Display top players and their unlocked achievements by joining the Players, Achievements and Sessions tables.
     - Filter and sort data interactively.
   - (Kuo: "Players Statistics": Done) Aggregation Query: Compute average playtime per player and total achievements per game.
-    - Filter and sort data interactively.
-  - (Raagini: "Play Time Per Week") Nested Aggregation with Group-By: Find total playtime per week grouped by player.
-    - use player + playergamesession + (session or game) to calculate playtimie
-    - | player | 2/1 - 2/7 | 2/8 - 2/14 | 2/15 - 2/21 | 2/22 - 2/28 |
     - Filter and sort data interactively.
   - (Xu Tang: "Top 5" ) Filtering & Ranking Query: Display the top 5 players with the highest scores dynamically.
     - highest score highest win rate (win / (win + losses + draws))
