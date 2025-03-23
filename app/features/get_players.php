@@ -26,7 +26,8 @@ try {
             <?php endwhile; ?>
 
             <!-- Add an extra column header for Edit button -->
-            <th>Action</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
 
         <?php while ($row = mysqli_fetch_assoc($result)): ?>
@@ -38,6 +39,9 @@ try {
                 <!-- Add an extra cell with the Edit link -->
                 <td>
                     <a href="/features/edit_player.php?id=<?php echo $row['PlayerID']; ?>">Edit</a>
+                </td>
+                <td>
+                    <a href="/features/delete_player.php?id=<?php echo $row['PlayerID']; ?>">Delete</a>
                 </td>
             </tr>
         <?php endwhile; ?>
