@@ -44,7 +44,7 @@ CREATE TABLE PaidPlayer (
     Show_statistics BOOLEAN NOT NULL,
     Show_features BOOLEAN NOT NULL,
     HasPaidPlayerBadge BOOLEAN NOT NULL,
-    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID)
+    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE
 );
 
 CREATE TABLE Session (
@@ -65,8 +65,8 @@ CREATE TABLE Game (
     White INT NOT NULL,
     Black INT NOT NULL,
     ResultID INT NOT NULL,
-    FOREIGN KEY (White) REFERENCES Player(PlayerID),
-    FOREIGN KEY (Black) REFERENCES Player(PlayerID),
+    FOREIGN KEY (White) REFERENCES Player(PlayerID) ON DELETE CASCADE,
+    FOREIGN KEY (Black) REFERENCES Player(PlayerID) ON DELETE CASCADE,
     FOREIGN KEY (ResultID) REFERENCES Result(ResultID)
 );
 
@@ -75,7 +75,7 @@ CREATE TABLE PlayerGameSession (
     GameID INT NOT NULL,
     SessionID INT NOT NULL,
     PRIMARY KEY (PlayerID, GameID, SessionID),
-    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID),
+    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE,
     FOREIGN KEY (GameID) REFERENCES Game(GameID),
     FOREIGN KEY (SessionID) REFERENCES Session(SessionID)
 );
@@ -86,7 +86,7 @@ CREATE TABLE GameComment (
     PlayerID INT NOT NULL,
     Comment TEXT,
     FOREIGN KEY (GameID) REFERENCES Game(GameID),
-    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID)
+    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE
 );
 
 CREATE TABLE Action (
@@ -110,6 +110,6 @@ CREATE TABLE PlayerAchievement (
     AchievementID INT NOT NULL,
     achievement_datetime DATETIME NOT NULL,
     PRIMARY KEY (PlayerID, AchievementID),
-    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID),
+    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE,
     FOREIGN KEY (AchievementID) REFERENCES Achievements(AchievementID)
 );
