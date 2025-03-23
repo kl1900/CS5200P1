@@ -7,6 +7,8 @@
 - get_player_achievement is now designed to retrieve the achievements of the top players (based on their win rate), along with the unlock date for each achievement, linked to the earliest session in which it was unlocked.
 - personal profile updation features is available in index page.
 
+Weifan 03/232025
+
 ## Setup environment
 
 **This env uses docker-compose, please install docker before starting**
