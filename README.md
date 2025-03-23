@@ -54,8 +54,7 @@ docker-compose down
 - The web app must include dynamic query integration, allowing users to interact with:
   - (weifan: "Top Players" ) Join Query: Display top players and their unlocked achievements by joining the Players, Achievements and Sessions tables.
     - Filter and sort data interactively.
-  - (Kuo: "Player Time") Aggregation Query: Compute average playtime per player and total achievements per game.
-    - what does total achievements per game mean? TBD
+  - (Kuo: "Players Statistics": Done) Aggregation Query: Compute average playtime per player and total achievements per game.
     - Filter and sort data interactively.
   - (Raagini: "Play Time Per Week") Nested Aggregation with Group-By: Find total playtime per week grouped by player.
     - use player + playergamesession + (session or game) to calculate playtimie
