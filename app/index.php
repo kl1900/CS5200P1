@@ -3,7 +3,7 @@
 <h2>Applications Tabs</h2>
 
 <div class="tabs">
-    <button class="tab-button" onclick="loadTab('features/get_top_players.php', this)">Top Players</button>
+    <button class="tab-button" onclick="loadTab('features/get_players.php', this)">Top Players</button>
     <button class="tab-button" onclick="loadTab('features/get_player_achievement.php', this)">Get Player
         Achievement</button>
     <button class="tab-button" onclick="loadTab('features/something.php', this)">some other feature</button>
