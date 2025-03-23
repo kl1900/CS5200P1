@@ -76,8 +76,8 @@ CREATE TABLE PlayerGameSession (
     SessionID INT NOT NULL,
     PRIMARY KEY (PlayerID, GameID, SessionID),
     FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE,
-    FOREIGN KEY (GameID) REFERENCES Game(GameID),
-    FOREIGN KEY (SessionID) REFERENCES Session(SessionID)
+    FOREIGN KEY (GameID) REFERENCES Game(GameID) ON DELETE CASCADE,
+    FOREIGN KEY (SessionID) REFERENCES Session(SessionID) ON DELETE CASCADE
 );
 
 CREATE TABLE GameComment (
@@ -85,7 +85,7 @@ CREATE TABLE GameComment (
     GameID INT NOT NULL,
     PlayerID INT NOT NULL,
     Comment TEXT,
-    FOREIGN KEY (GameID) REFERENCES Game(GameID),
+    FOREIGN KEY (GameID) REFERENCES Game(GameID) ON DELETE CASCADE,
     FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE
 );
 
@@ -95,7 +95,7 @@ CREATE TABLE Action (
     Move VARCHAR(50) NOT NULL,
     time_stamp DATETIME NOT NULL,
     PRIMARY KEY (GameID, MoveNumber),
-    FOREIGN KEY (GameID) REFERENCES Game(GameID)
+    FOREIGN KEY (GameID) REFERENCES Game(GameID) ON DELETE CASCADE
 );
 
 CREATE TABLE Achievements (
@@ -111,5 +111,5 @@ CREATE TABLE PlayerAchievement (
     achievement_datetime DATETIME NOT NULL,
     PRIMARY KEY (PlayerID, AchievementID),
     FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE,
-    FOREIGN KEY (AchievementID) REFERENCES Achievements(AchievementID)
+    FOREIGN KEY (AchievementID) REFERENCES Achievements(AchievementID) ON DELETE CASCADE
 );
