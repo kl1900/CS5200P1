@@ -8,9 +8,9 @@
     <button class="tab-button" onclick="loadTab('features/get_player_achievement.php', this)">Get Player
         Achievement</button>
     <button class="tab-button" onclick="loadTab('features/get_players_stat.php', this)">Players Statistics</button>
-    <button class="tab-button" onclick="loadTab('features/something.php', this)">some other feature</button>
     <button class="tab-button" onclick="loadTab('features/top5.php', this)">Top 5</button>
     <button class="tab-button" onclick="loadTab('features/playtime_per_week.php', this)">Play Time Per Week</button>
+    <button class="tab-button" onclick="loadTab('features/stored_procedures.php', this)">Stored Procedures</button>
 </div>
 
 
@@ -84,6 +84,59 @@
             });
     }
 
+    function fetchProcedureResult(sourceId) {
+        const procedureText = document.getElementById(sourceId).value;
+
+        if (!procedureText.trim()) {
+            document.getElementById('procedureResults').innerHTML = '<p>Please select a stored procedure from the dropdown above.</p>';
+            return;
+        }
+
+        fetch('features/get_stored_procedure_result.php?procedureText=' + encodeURIComponent(procedureText))
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not OK');
+                }
+                return response.text();
+            })
+            .then(html => {
+                document.getElementById('procedureResults').innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                document.getElementById('procedureResults').innerHTML = '<p style="color:red;">Failed to load player data.</p>';
+            });
+    }
+
+    function procedureExecuteFunc() {
+        fetchProcedureResult('sql_query');
+    }
+
+    function procedureDropDownFunc() {
+        fetchProcedureResult('procedureDropDown');
+    }
+
+    function procedureStoreFunc() {
+        const procedureText = document.getElementById('sql_query').value.trim();
+
+        fetch('features/store_procedure_text.php?procedureText=' + encodeURIComponent(procedureText))
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not OK');
+                }
+                return response.text();
+            }).then(html => {
+                document.getElementById('procedureResults').innerHTML = html;
+                
+                // update dropdown menu
+                procedureDropDownFunc();
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                document.getElementById('procedureResults').innerHTML = '<p style="color:red;">Failed to load player data.</p>';
+            });
+    }
+
     window.onload = function () {
         document.querySelector('.tab-button').click();
     };
@@ -92,6 +145,8 @@
     let currentOrder = 'asc';
 
     document.addEventListener("click", function (e) {
+        e.preventDefault();
+
         if (e.target.classList.contains("sort-header")) {
             const clickedSort = e.target.dataset.sort;
 

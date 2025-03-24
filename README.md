@@ -64,6 +64,7 @@ docker-compose down
 - (Kuo) AJAX-based updates (bonus features) for a smoother user experience. Each bonus feature is
 worth 2 points. You can implement maximum three different bonus features (For example,
 Triggers, role-based authentication or stored procedures)
+  - (Kuo - finished) added Stored Procedures feature
 
 
 ## DONE

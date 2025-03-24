@@ -113,3 +113,9 @@ CREATE TABLE PlayerAchievement (
     FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID) ON DELETE CASCADE,
     FOREIGN KEY (AchievementID) REFERENCES Achievements(AchievementID) ON DELETE CASCADE
 );
+
+CREATE TABLE StoredProcedures (
+    ProcedureID INT NOT NULL AUTO_INCREMENT,
+    ProcedureText VARCHAR(255) NOT NULL,
+    PRIMARY KEY (ProcedureID)
+)
