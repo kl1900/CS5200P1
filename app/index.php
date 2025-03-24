@@ -9,6 +9,7 @@
     <button class="tab-button" onclick="loadTab('features/get_players_stat.php', this)">Players Statistics</button>
     <button class="tab-button" onclick="loadTab('features/something.php', this)">some other feature</button>
     <button class="tab-button" onclick="loadTab('features/top5.php', this)">Top 5</button>
+    <button class="tab-button" onclick="loadTab('features/playtime_per_week.php', this)">Play Time Per Week</button>
 </div>
 
 
@@ -60,6 +61,29 @@
     window.onload = function () {
         document.querySelector('.tab-button').click();
     };
+
+    let currentSort = null;
+    let currentOrder = 'asc';
+
+    document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("sort-header")) {
+            const clickedSort = e.target.dataset.sort;
+
+            // Toggle order if clicking the same column, otherwise reset to ascending
+            if (clickedSort === currentSort) {
+                currentOrder = currentOrder === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort = clickedSort;
+                currentOrder = 'asc';
+            }
+
+            fetch(`features/playtime_per_week.php?sort=${currentSort}&order=${currentOrder}`)
+                .then(res => res.text())
+                .then(html => {
+                    document.getElementById('content').innerHTML = html;
+                });
+        }
+    });
 </script>
 
 <?php include "./includes/footer.php" ?>
