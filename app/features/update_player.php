@@ -3,20 +3,21 @@ include "./db.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = intval($_POST['PlayerID']);
-    $username = $conn->real_escape_string($_POST['username']);
-    $email = $conn->real_escape_string($_POST['email']);
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
 
-    // Update only username and email
-    $sql = "UPDATE Player SET 
-            Username = '$username', 
-            email_address = '$email' 
-            WHERE PlayerID = $id";
+    $stmt = $conn->prepare("UPDATE Player SET Username = ?, email_address = ? WHERE PlayerID = ?");
+    $stmt->bind_param("ssi", $username, $email, $id);
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Player updated successfully. <a href='/'>Back to Player List</a>";
+    if ($stmt->execute()) {
+        echo "Player updated successfully.";
     } else {
         echo "Error updating player: " . $conn->error;
     }
 } else {
     echo "Invalid request.";
 }
+echo<<<HTML
+<br>
+<a href="/">Back to Player List</a>
+HTML;

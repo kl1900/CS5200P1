@@ -3,8 +3,8 @@
 <h2>Check Game Dashboard</h2>
 
 <div class="tabs">
-    <button class="tab-button" onclick="loadTab('dashboard/dashboard.php', this)">Dashboard</button>
     <button class="tab-button" onclick="loadTab('features/all_players.php', this)">All Players</button>
+    <button class="tab-button" onclick="loadTab('dashboard/dashboard.php', this)">Dashboard</button>
     <button class="tab-button" onclick="loadTab('features/get_player_achievement.php', this)">Player Achievements</button>
     <button class="tab-button" onclick="loadTab('features/get_players_stat.php', this)">Players Statistics</button>
     <button class="tab-button" onclick="loadTab('features/top5.php', this)">Top 5</button>

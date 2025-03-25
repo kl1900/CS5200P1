@@ -69,7 +69,7 @@ $arrow = fn($col) => $sort === $col ? ($order === 'ASC' ? ' ▲' : ' ▼') : $de
 
 // Helper function to build a URL to the current page with additional parameters
 function buildUrl($additionalParams = []) {
-    $base = 'features/get_players.php';
+    $base = 'features/all_players.php';
     
     // Start with current GET parameters
     $params = $_GET;
@@ -120,7 +120,7 @@ function buildUrl($additionalParams = []) {
     ?>
     <a href="javascript:void(0)" onclick="
         const activeTab = document.querySelector('.tab-button.active');
-        loadTab('features/get_players.php?sort=<?php echo urlencode($sort); ?>&order=<?php echo urlencode(strtolower($order)); ?>', activeTab);
+        loadTab('features/all_players.php?sort=<?php echo urlencode($sort); ?>&order=<?php echo urlencode(strtolower($order)); ?>', activeTab);
     " style="margin-left: 10px; color: #f44336; text-decoration: none; font-weight: bold;">✖ Clear All</a>
     </p>
 </div>
@@ -157,7 +157,7 @@ function buildUrl($additionalParams = []) {
         <div style="flex: 0 0 auto; margin-bottom: 3px;">
             <button id="apply-filter-btn" onclick="
                 const activeTab = document.querySelector('.tab-button.active');
-                let url = 'features/get_players.php?';
+                let url = 'features/all_players.php?';
                 let params = [];
                 
                 <?php foreach ($filterColumns as $column): ?>
@@ -182,7 +182,7 @@ function buildUrl($additionalParams = []) {
             
             <button onclick="
                 const activeTab = document.querySelector('.tab-button.active');
-                loadTab('features/get_players.php?sort=<?php echo urlencode($sort); ?>&order=<?php echo urlencode(strtolower($order)); ?>', activeTab);
+                loadTab('features/all_players.php?sort=<?php echo urlencode($sort); ?>&order=<?php echo urlencode(strtolower($order)); ?>', activeTab);
             " style="padding: 3px 10px; background-color: #f44336; color: white; border: none; cursor: pointer; margin-left: 5px;">Clear</button>
         </div>
     </div>
@@ -228,8 +228,9 @@ function buildUrl($additionalParams = []) {
                 
                 <!-- Add Edit and Delete links -->
                 <td>
-                    <a href="features/edit_player.php?id=<?php echo $row['PlayerID']; ?>">Edit</a>
-                </td>
+                <button onclick="window.open('features/edit_player.php?id=<?php echo $row['PlayerID']; ?>', '_blank')">
+                    Edit
+                </button>
                 <td>
                     <a href="features/delete_player.php?id=<?php echo $row['PlayerID']; ?>">Delete</a>
                 </td>
@@ -240,7 +241,7 @@ function buildUrl($additionalParams = []) {
     <p>No results found with the current filters. 
         <button onclick="
             const activeTab = document.querySelector('.tab-button.active');
-            loadTab('features/get_players.php?sort=<?php echo urlencode($sort); ?>&order=<?php echo urlencode(strtolower($order)); ?>', activeTab);
+            loadTab('features/all_players.php?sort=<?php echo urlencode($sort); ?>&order=<?php echo urlencode(strtolower($order)); ?>', activeTab);
         " style="padding: 3px 10px; background-color: #f44336; color: white; border: none; cursor: pointer;">Clear filters</button>
     </p>
 <?php endif; ?>

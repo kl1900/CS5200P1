@@ -23,7 +23,7 @@ if (isset($_GET['id'])) {
 
 <h2>Edit Player Profile</h2>
 
-<form method="post" action="update_player.php">
+<form method="POST" action="./update_player.php">
     <input type="hidden" name="PlayerID" value="<?php echo $player['PlayerID']; ?>">
 
     Username:<br>
