@@ -7,7 +7,7 @@
 
 1. Using git to pull this project
 ```
-git pull git@github.com:kl1900/CS5800P1.git
+git clone git@github.com:kl1900/CS5200P1.git
 ```
 2. create 2 directories in this repo and grant proper permissions
 
