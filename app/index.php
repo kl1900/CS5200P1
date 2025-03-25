@@ -3,6 +3,7 @@
 <h2>Applications Tabs</h2>
 
 <div class="tabs">
+    <button class="tab-button" onclick="loadTab('dashboard/dashboard.php', this)">Dashboard</button>
     <button class="tab-button" onclick="loadTab('features/get_players.php', this)">Top Players</button>
     <button class="tab-button" onclick="loadTab('features/get_player_achievement.php', this)">Get Player
         Achievement</button>
@@ -17,20 +18,45 @@
     <p>Select a feature tab above to load PHP content.</p>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    window.activeCharts = []; // global store for active Chart.js instances
+
     function loadTab(url, btn) {
-        // Mark the active tab
+        // Reset active button styling
         document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        // Fetch and load the PHP content
+        // Load tab content
         fetch(url)
             .then(response => response.text())
             .then(html => {
-                document.getElementById('content').innerHTML = html;
+                const container = document.getElementById('content');
+                container.innerHTML = html;
+
+                // Destroy any previously active charts
+                if (window.activeCharts.length > 0) {
+                    window.activeCharts.forEach(c => {
+                        if (c && typeof c.destroy === 'function') c.destroy();
+                    });
+                    window.activeCharts = [];
+                }
+
+                // Re-execute inline <script> tags
+                const scripts = container.querySelectorAll("script");
+                scripts.forEach(script => {
+                    const newScript = document.createElement("script");
+                    if (script.src) {
+                        newScript.src = script.src;
+                    } else {
+                        newScript.textContent = script.textContent;
+                    }
+                    document.body.appendChild(newScript);
+                });
             })
             .catch(err => {
                 document.getElementById('content').innerHTML = `<p style="color:red;">Failed to load ${url}</p>`;
+                console.error(err);
             });
     }
 
@@ -84,6 +110,6 @@
                 });
         }
     });
-</script>
 
+</script>
 <?php include "./includes/footer.php" ?>

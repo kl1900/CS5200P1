@@ -47,6 +47,8 @@ try {
         <?php endwhile; ?>
     </table>
 
+
+
 <?php elseif ($result): ?>
     <p>No results found.</p>
 <?php endif; ?>

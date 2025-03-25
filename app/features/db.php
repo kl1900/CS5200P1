@@ -1,4 +1,3 @@
-<!-- setup php server connection -->
 <?php
 $servername = "mysql";  // The MySQL service name in docker-compose
 $username = "root";
