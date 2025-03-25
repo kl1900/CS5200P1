@@ -144,12 +144,30 @@
     let currentSort = null;
     let currentOrder = 'asc';
 
+    // document.addEventListener("click", function (e) {
+    //     if (e.target.classList.contains("sort-header")) {
+    //         const clickedSort = e.target.dataset.sort;
+
+    //         // Toggle order if clicking the same column, otherwise reset to ascending
+    //         if (clickedSort === currentSort) {
+    //             currentOrder = currentOrder === 'asc' ? 'desc' : 'asc';
+    //         } else {
+    //             currentSort = clickedSort;
+    //             currentOrder = 'asc';
+    //         }
+
+    //         fetch(`features/playtime_per_week.php?sort=${currentSort}&order=${currentOrder}`)
+    //             .then(res => res.text())
+    //             .then(html => {
+    //                 document.getElementById('content').innerHTML = html;
+    //             });
+    //     }
+    // });
     document.addEventListener("click", function (e) {
         e.preventDefault();
-
         if (e.target.classList.contains("sort-header")) {
             const clickedSort = e.target.dataset.sort;
-
+            
             // Toggle order if clicking the same column, otherwise reset to ascending
             if (clickedSort === currentSort) {
                 currentOrder = currentOrder === 'asc' ? 'desc' : 'asc';
@@ -157,14 +175,30 @@
                 currentSort = clickedSort;
                 currentOrder = 'asc';
             }
-
-            fetch(`features/playtime_per_week.php?sort=${currentSort}&order=${currentOrder}`)
+            
+            // Get the active tab by finding which tab button has the 'active' class
+            const activeTab = document.querySelector('.tab-button.active');
+            let tabUrl = 'features/playtime_per_week.php'; // Default as fallback
+            
+            if (activeTab) {
+                // Extract the URL from the active tab's onclick attribute
+                const onclickAttr = activeTab.getAttribute('onclick');
+                if (onclickAttr) {
+                    const match = onclickAttr.match(/loadTab\('([^']+)'/);
+                    if (match && match[1]) {
+                        tabUrl = match[1];
+                    }
+                }
+            }
+            
+            fetch(`${tabUrl}?sort=${currentSort}&order=${currentOrder}`)
                 .then(res => res.text())
                 .then(html => {
                     document.getElementById('content').innerHTML = html;
                 });
         }
-    });
+});
+</script>
 
 </script>
 <?php include "./includes/footer.php" ?>
