@@ -232,7 +232,13 @@ function buildUrl($additionalParams = []) {
                     Edit
                 </button>
                 <td>
-                    <a href="features/delete_player.php?id=<?php echo $row['PlayerID']; ?>">Delete</a>
+                <button onclick="
+                    if (confirm('Are you sure you want to delete this player?')) {
+                        window.location.href='/features/delete_player.php?id=<?php echo $row['PlayerID']; ?>';
+                    }
+                ">
+                    Delete
+                </button>
                 </td>
             </tr>
         <?php endwhile; ?>
