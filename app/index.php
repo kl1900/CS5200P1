@@ -21,13 +21,20 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     window.activeCharts = []; // global store for active Chart.js instances
+    // Global variables to track current state
+    let currentSort = null;
+    let currentOrder = 'asc';
+    let currentFilters = {};
 
     function loadTab(url, btn) {
         // Reset active button styling
         document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        // Load tab content
+        // Reset filters when switching tabs
+        currentFilters = {};
+
+        // Fetch and load the PHP content
         fetch(url)
             .then(response => response.text())
             .then(html => {
@@ -59,6 +66,78 @@
                 console.error(err);
             });
     }
+
+// New function to handle filters
+window.applyFilters = function(filterData) {
+    // Log what we're receiving 
+    console.log('Parent applyFilters called with:', filterData);
+    
+    // Store the filter values
+    currentFilters = filterData;
+    
+    // Get the active tab URL
+    const activeTab = document.querySelector('.tab-button.active');
+    let tabUrl = '';
+    
+    if (activeTab) {
+        console.log('Active tab found:', activeTab);
+        const onclickAttr = activeTab.getAttribute('onclick');
+        console.log('onclick attribute:', onclickAttr);
+        
+        if (onclickAttr) {
+            const match = onclickAttr.match(/loadTab\('([^']+)'/);
+            console.log('match result:', match);
+            
+            if (match && match[1]) {
+                tabUrl = match[1].split('?')[0]; // Get base URL without parameters
+                console.log('Extracted URL:', tabUrl);
+            }
+        }
+    } else {
+        console.error('No active tab found');
+    }
+    
+    if (!tabUrl) {
+        console.error('Could not determine active tab URL');
+        return;
+    }
+    
+    // Build the complete URL with filter and sort parameters
+    let url = tabUrl + '?';
+    let params = [];
+    
+    // Add filter parameters
+    for (const key in filterData) {
+        if (filterData[key]) {
+            params.push(encodeURIComponent(key) + '=' + encodeURIComponent(filterData[key]));
+        }
+    }
+    
+    // Add sort parameters if they exist
+    if (currentSort) {
+        params.push('sort=' + encodeURIComponent(currentSort));
+        params.push('order=' + encodeURIComponent(currentOrder));
+    }
+    
+    url += params.join('&');
+    console.log('Final URL:', url);
+    
+    // Fetch and load the filtered content
+    fetch(url)
+        .then(response => {
+            console.log('Response status:', response.status);
+            return response.text();
+        })
+        .then(html => {
+            console.log('Received HTML length:', html.length);
+            document.getElementById('content').innerHTML = html;
+            console.log('Content updated');
+        })
+        .catch(err => {
+            console.error('Error loading filtered content:', err);
+            document.getElementById('content').innerHTML = `<p style="color:red;">Failed to load filtered content: ${err.message}</p>`;
+        });
+}
 
     function filterByPlayer() {
         const playerId = document.getElementById('playerDropdown').value;
@@ -141,28 +220,6 @@
         document.querySelector('.tab-button').click();
     };
 
-    let currentSort = null;
-    let currentOrder = 'asc';
-
-    // document.addEventListener("click", function (e) {
-    //     if (e.target.classList.contains("sort-header")) {
-    //         const clickedSort = e.target.dataset.sort;
-
-    //         // Toggle order if clicking the same column, otherwise reset to ascending
-    //         if (clickedSort === currentSort) {
-    //             currentOrder = currentOrder === 'asc' ? 'desc' : 'asc';
-    //         } else {
-    //             currentSort = clickedSort;
-    //             currentOrder = 'asc';
-    //         }
-
-    //         fetch(`features/playtime_per_week.php?sort=${currentSort}&order=${currentOrder}`)
-    //             .then(res => res.text())
-    //             .then(html => {
-    //                 document.getElementById('content').innerHTML = html;
-    //             });
-    //     }
-    // });
     document.addEventListener("click", function (e) {
         e.preventDefault();
         if (e.target.classList.contains("sort-header")) {
@@ -192,10 +249,23 @@
             }
             
             fetch(`${tabUrl}?sort=${currentSort}&order=${currentOrder}`)
-                .then(res => res.text())
+            .then(res => res.text())
                 .then(html => {
                     document.getElementById('content').innerHTML = html;
                 });
+            
+            // Build the complete URL with both sort and filter parameters
+            let url = `${tabUrl}?sort=${currentSort}&order=${currentOrder}`;
+            
+            // Add any existing filter parameters
+            for (const key in currentFilters) {
+                if (currentFilters[key]) {
+                    url += `&${encodeURIComponent(key)}=${encodeURIComponent(currentFilters[key])}`;
+                }
+            }
+            
+            fetch(url)
+                
         }
 });
 </script>
