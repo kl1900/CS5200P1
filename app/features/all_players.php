@@ -228,10 +228,10 @@ function buildUrl($additionalParams = []) {
                 
                 <!-- Add Edit and Delete links -->
                 <td>
-                    <a href="/features/edit_player.php?id=<?php echo $row['PlayerID']; ?>">Edit</a>
+                    <a href="features/edit_player.php?id=<?php echo $row['PlayerID']; ?>">Edit</a>
                 </td>
                 <td>
-                    <a href="/features/delete_player.php?id=<?php echo $row['PlayerID']; ?>">Delete</a>
+                    <a href="features/delete_player.php?id=<?php echo $row['PlayerID']; ?>">Delete</a>
                 </td>
             </tr>
         <?php endwhile; ?>
