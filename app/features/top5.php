@@ -1,8 +1,8 @@
 <?php
 include "./db.php";
 
-// SQL query to calculate win ratio and fetch the top 5 players
-$sql = "SELECT PlayerID, Username, registration_date, email_address, Wins, Losses, Draws, Withdraw,
+// SQL query to calculate win ratio and fetch the top 5 players (dropping registration_date, email_address)
+$sql = "SELECT PlayerID, Username, Wins, Losses, Draws, Withdraw,
                (Wins / (Wins + Losses + Draws + 0.0)) AS win_ratio
         FROM Player
         ORDER BY win_ratio DESC
@@ -35,29 +35,21 @@ try {
             <tr>
                 <th>PlayerID</th>
                 <th>Username</th>
-                <th>Registration Date</th>
-                <th>Email Address</th>
                 <th>Wins</th>
                 <th>Losses</th>
                 <th>Draws</th>
                 <th>Withdraw</th>
                 <th>Win Ratio</th>
-                <th>Action</th>
             </tr>
             <?php while ($row = mysqli_fetch_assoc($result)): ?>
                 <tr>
                     <td><?php echo htmlspecialchars($row['PlayerID']); ?></td>
                     <td><?php echo htmlspecialchars($row['Username']); ?></td>
-                    <td><?php echo htmlspecialchars($row['registration_date']); ?></td>
-                    <td><?php echo htmlspecialchars($row['email_address']); ?></td>
                     <td><?php echo htmlspecialchars($row['Wins']); ?></td>
                     <td><?php echo htmlspecialchars($row['Losses']); ?></td>
                     <td><?php echo htmlspecialchars($row['Draws']); ?></td>
                     <td><?php echo htmlspecialchars($row['Withdraw']); ?></td>
                     <td><?php echo number_format($row['win_ratio'], 2); ?></td>
-                    <td>
-                        <a href="/features/edit_player.php?id=<?php echo urlencode($row['PlayerID']); ?>">Edit</a>
-                    </td>
                 </tr>
             <?php endwhile; ?>
         </table>
