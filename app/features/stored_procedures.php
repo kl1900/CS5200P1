@@ -14,25 +14,10 @@ include 'db.php';
 
 <h3>Stored Procedures</h3>
 
-<select id="procedureDropDown" onchange="procedureDropDownFunc()">
+<select id="procedureDropDown" onchange="procedureDropDownFunc()" onclick="refreshDropdown()">
     <option value="">-- Select a procedure --</option>
     <?php
-    $sql = "
-        SELECT 
-            ProcedureText
-        FROM 
-            StoredProcedures
-        ORDER BY 
-            ProcedureID
-    ";
-
-    $result = $conn->query($sql);
-
-    while ($row = $result->fetch_assoc()) {
-        $procedureText = htmlspecialchars($row['ProcedureText']);
-        // Show username with win rate in dropdown
-        echo "<option value='$procedureText'>$procedureText</option>";
-    }
+    include "./get_stored_procedures_options.php";
     ?>
 </select>
 

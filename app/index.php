@@ -1,12 +1,11 @@
 <?php include "./includes/header.php" ?>
 
-<h2>Applications Tabs</h2>
+<h2>Check Game Dashboard</h2>
 
 <div class="tabs">
     <button class="tab-button" onclick="loadTab('dashboard/dashboard.php', this)">Dashboard</button>
-    <button class="tab-button" onclick="loadTab('features/get_players.php', this)">Top Players</button>
-    <button class="tab-button" onclick="loadTab('features/get_player_achievement.php', this)">Get Player
-        Achievement</button>
+    <button class="tab-button" onclick="loadTab('features/get_players.php', this)">All Players</button>
+    <button class="tab-button" onclick="loadTab('features/get_player_achievement.php', this)">Player Achievements</button>
     <button class="tab-button" onclick="loadTab('features/get_players_stat.php', this)">Players Statistics</button>
     <button class="tab-button" onclick="loadTab('features/top5.php', this)">Top 5</button>
     <button class="tab-button" onclick="loadTab('features/playtime_per_week.php', this)">Play Time Per Week</button>
@@ -25,6 +24,18 @@
     let currentSort = null;
     let currentOrder = 'asc';
     let currentFilters = {};
+
+    function refreshDropdown() {
+        fetch("features/get_stored_procedures_options.php")
+            .then(response => response.text())
+            .then(optionHTML => {
+                const dropdown = document.getElementById("procedureDropDown");
+                dropdown.innerHTML = '<option value="">-- Select a procedure --</option>' + optionHTML;
+            })
+            .catch(error => {
+                console.error("Failed to refresh dropdown:", error);
+            });
+    }
 
     function loadTab(url, btn) {
         // Reset active button styling
