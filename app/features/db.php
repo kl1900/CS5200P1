@@ -1,7 +1,7 @@
 <?php
 $servername = "mysql";  // The MySQL service name in docker-compose
 $username = "root";
-$password = "5800";
+$password = "5200";
 $dbname = "Practicum1";
 
 $conn = new mysqli($servername, $username, $password, $dbname);

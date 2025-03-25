@@ -24,7 +24,7 @@ services:
     container_name: mysql-db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 5800
+      MYSQL_ROOT_PASSWORD: 5200
       MYSQL_DATABASE: Practicum1
       MYSQL_USER: student
       MYSQL_PASSWORD: student
