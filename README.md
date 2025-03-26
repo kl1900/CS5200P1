@@ -1,9 +1,19 @@
 # CS5200P1
 
+CS5200 Practicum Done by Group 5, including:
+  - Kuo Lu
+  - Weifan Li
+  - Raagini Tyagi
+  - Xu Tang
+
+PDF Attachment is [here](./Analytical%20queries%20and%20explainations.pdf)
+
 ## Starting the application
 
 **This env uses docker-compose, please install docker before starting following [this guide](https://www.docker.com/get-started/)**
-**The following are in POSIX OS shell**
+
+
+**The following commands assumes you use a POSIX shell**
 
 1. Using git to pull this project
 ```
